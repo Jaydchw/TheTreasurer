@@ -1,0 +1,16 @@
+{
+  "THETREASURER-THE_TREASURER.aromaPrinciple": "Lore",
+  "THETREASURER-THE_TREASURER.banter.alive.endTurnPing": "Co-op hurry up end turn ping message",
+  "THETREASURER-THE_TREASURER.banter.dead.endTurnPing": "...",
+  "THETREASURER-THE_TREASURER.cardsModifierDescription": "__ cards will now appear in rewards and shops.",
+  "THETREASURER-THE_TREASURER.cardsModifierTitle": "__ Cards",
+  "THETREASURER-THE_TREASURER.description": "Character Selection\nScreen Description",
+  "THETREASURER-THE_TREASURER.eventDeathPrevention": "Co-op survival line",
+  "THETREASURER-THE_TREASURER.goldMonologue": "Line spoken when obtaining a large amount of gold",
+  "THETREASURER-THE_TREASURER.possessiveAdjective": "her",
+  "THETREASURER-THE_TREASURER.pronounObject": "her",
+  "THETREASURER-THE_TREASURER.pronounPossessive": "hers",
+  "THETREASURER-THE_TREASURER.pronounSubject": "she",
+  "THETREASURER-THE_TREASURER.title": "The Treasurer",
+  "THETREASURER-THE_TREASURER.titleObject": "Treasurer"
+}

@@ -1,0 +1,8 @@
+{
+  "THETREASURER-MONEY_POWER.title": "Money = Power",
+  "THETREASURER-MONEY_POWER.description": "Gain 1 Energy at the start of your turn if Gold > 100.",
+  "THETREASURER-MONEY_POWER.smartDescription": "Gain 1 Energy at the start of your turn if Gold > 100.",
+  "THETREASURER-RESIN_RELIC_CLEANUP_POWER.title": "Resin Relics",
+  "THETREASURER-RESIN_RELIC_CLEANUP_POWER.description": "Resin relics vanish at end of combat.",
+  "THETREASURER-RESIN_RELIC_CLEANUP_POWER.smartDescription": "Resin relics vanish at end of combat."
+}

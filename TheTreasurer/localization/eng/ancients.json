@@ -1,0 +1,20 @@
+{
+  "THE_ARCHITECT.talk.THETREASURER-THE_TREASURER.0-0r.char": "I am angry at the architect",
+  "THE_ARCHITECT.talk.THETREASURER-THE_TREASURER.0-0r.next": "Continue",
+  "THE_ARCHITECT.talk.THETREASURER-THE_TREASURER.0-1r.ancient": "You die",
+  "THE_ARCHITECT.talk.THETREASURER-THE_TREASURER.0-attack": "Both",
+  "THETREASURER-THE_TREASURER.aromaPrinciple": "Lore",
+  "THETREASURER-THE_TREASURER.banter.alive.endTurnPing": "Co-op hurry up end turn ping message",
+  "THETREASURER-THE_TREASURER.banter.dead.endTurnPing": "...",
+  "THETREASURER-THE_TREASURER.cardsModifierDescription": "__ cards will now appear in rewards and shops.",
+  "THETREASURER-THE_TREASURER.cardsModifierTitle": "__ Cards",
+  "THETREASURER-THE_TREASURER.description": "Character Selection\nScreen Description",
+  "THETREASURER-THE_TREASURER.eventDeathPrevention": "Co-op survival line",
+  "THETREASURER-THE_TREASURER.goldMonologue": "Line spoken when obtaining a large amount of gold",
+  "THETREASURER-THE_TREASURER.possessiveAdjective": "his/her/its",
+  "THETREASURER-THE_TREASURER.pronounObject": "him/her/it",
+  "THETREASURER-THE_TREASURER.pronounPossessive": "his/hers/its",
+  "THETREASURER-THE_TREASURER.pronounSubject": "he/she/it",
+  "THETREASURER-THE_TREASURER.title": "The TheTreasurer",
+  "THETREASURER-THE_TREASURER.titleObject": "The TheTreasurer"
+}
