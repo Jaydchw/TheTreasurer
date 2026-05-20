@@ -11,7 +11,7 @@ public class Allowance : TheTreasurerCard
 {
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new CardsVar(1)
+        new CardsVar(3)
     ];
 
     public Allowance() : base(
@@ -24,8 +24,8 @@ public class Allowance : TheTreasurerCard
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay play)
     {
+        await PlayerCmd.LoseGold(5, Owner);
         await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.BaseValue, Owner);
-        await PlayerCmd.GainGold(5, Owner);
     }
 
     protected override void OnUpgrade()

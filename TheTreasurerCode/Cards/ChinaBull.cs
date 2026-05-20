@@ -11,9 +11,11 @@ namespace TheTreasurer.TheTreasurerCode.Cards;
 
 public class ChinaBull : TheTreasurerCard
 {
+    protected override bool RequiresResinRelicToPlay => true;
+
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new DamageVar(15, ValueProp.Move)
+        new DamageVar(12, ValueProp.Move)
     ];
 
     public ChinaBull() : base(
@@ -36,15 +38,14 @@ public class ChinaBull : TheTreasurerCard
         }
 
         var resinRelics = ResinRelicRegistry.GetResinRelics(Owner);
-        var destroyed = Owner.RunState.Rng.TreasureRoomRelics.NextItem(resinRelics);
-        if (destroyed != null)
+        if (resinRelics.Count > 0)
         {
-            await RelicCmd.Remove(destroyed);
+            _ = await ResinRelicRegistry.DestroyRandomResinRelic(Owner);
         }
     }
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Damage.UpgradeValueBy(4);
+        DynamicVars.Damage.UpgradeValueBy(3);
     }
 }

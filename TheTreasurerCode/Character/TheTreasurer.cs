@@ -13,39 +13,30 @@ namespace TheTreasurer.TheTreasurerCode.Character;
 public class TheTreasurer : PlaceholderCharacterModel
 {
     public const string CharacterId = "TheTreasurer";
-    
-    public static readonly Color Color = new("ffffff");
+    public static readonly Color Color = new("ffdd00");
 
     public override Color NameColor => Color;
     public override CharacterGender Gender => CharacterGender.Neutral;
     public override int StartingHp => 70;
-    
+
     public override IEnumerable<CardModel> StartingDeck => [
+        ModelDb.Card<StrikeTreasurer>(),
+        ModelDb.Card<StrikeTreasurer>(),
+        ModelDb.Card<StrikeTreasurer>(),
+        ModelDb.Card<StrikeTreasurer>(),
+        ModelDb.Card<DefendTreasurer>(),
+        ModelDb.Card<DefendTreasurer>(),
+        ModelDb.Card<DefendTreasurer>(),
+        ModelDb.Card<DefendTreasurer>(),
         ModelDb.Card<Cream>(),
-        ModelDb.Card<Treasure>(),
-        ModelDb.Card<StrikeTreasurer>(),
-        ModelDb.Card<StrikeTreasurer>(),
-        ModelDb.Card<StrikeTreasurer>(),
-        ModelDb.Card<StrikeTreasurer>(),
-        ModelDb.Card<DefendTreasurer>(),
-        ModelDb.Card<DefendTreasurer>(),
-        ModelDb.Card<DefendTreasurer>(),
-        ModelDb.Card<DefendTreasurer>()
+        ModelDb.Card<Treasure>()
     ];
 
-    public override IReadOnlyList<RelicModel> StartingRelics =>
-    [
-        ModelDb.Relic<StarterResinPress>()
-    ];
-    
+    public override IReadOnlyList<RelicModel> StartingRelics => [ ModelDb.Relic<StarterResinPress>() ];
     public override CardPoolModel CardPool => ModelDb.CardPool<TheTreasurerCardPool>();
     public override RelicPoolModel RelicPool => ModelDb.RelicPool<TheTreasurerRelicPool>();
     public override PotionPoolModel PotionPool => ModelDb.PotionPool<TheTreasurerPotionPool>();
-    
-    /*  PlaceholderCharacterModel will utilize placeholder basegame assets for most of your character assets until you
-        override all the other methods that define those assets. 
-        These are just some of the simplest assets, given some placeholders to differentiate your character with. 
-        You don't have to, but you're suggested to rename these images. */
+
     public override Control CustomIcon
     {
         get

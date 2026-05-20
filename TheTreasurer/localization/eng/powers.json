@@ -1,8 +1,23 @@
 {
   "THETREASURER-MONEY_POWER.title": "Money = Power",
-  "THETREASURER-MONEY_POWER.description": "Gain 1 Energy at the start of your turn if Gold > 100.",
-  "THETREASURER-MONEY_POWER.smartDescription": "Gain 1 Energy at the start of your turn if Gold > 100.",
+  "THETREASURER-MONEY_POWER.description": "Gain [E] at the start of your turn if *Gold > 100.",
+  "THETREASURER-MONEY_POWER.smartDescription": "Gain [E] at the start of your turn if *Gold > 100.",
+  "THETREASURER-DIRECT_DEPOSIT_POWER.title": "",
+  "THETREASURER-DIRECT_DEPOSIT_POWER.description": "",
+  "THETREASURER-DIRECT_DEPOSIT_POWER.smartDescription": "",
   "THETREASURER-RESIN_RELIC_CLEANUP_POWER.title": "Resin Relics",
-  "THETREASURER-RESIN_RELIC_CLEANUP_POWER.description": "Resin relics vanish at end of combat.",
-  "THETREASURER-RESIN_RELIC_CLEANUP_POWER.smartDescription": "Resin relics vanish at end of combat."
+  "THETREASURER-RESIN_RELIC_CLEANUP_POWER.description": "Resin relics break at end of combat.",
+  "THETREASURER-RESIN_RELIC_CLEANUP_POWER.smartDescription": "Resin relics break at end of combat.",
+  "THETREASURER-COMPOUND_INTEREST_POWER.title": "Compound Interest",
+  "THETREASURER-COMPOUND_INTEREST_POWER.description": "At end of turn, gain {Amount}% of your current *Gold ({GainNow}/100 max).",
+  "THETREASURER-COMPOUND_INTEREST_POWER.smartDescription": "At end of turn, gain {Amount}% of your current *Gold ({GainNow}/100 max).",
+  "THETREASURER-ARCANE_FLOW_POWER.title": "Arcane Flow",
+  "THETREASURER-ARCANE_FLOW_POWER.description": "The first enchanted card you play each turn costs 0.",
+  "THETREASURER-ARCANE_FLOW_POWER.smartDescription": "The first enchanted card you play each turn costs 0.",
+  "THETREASURER-ARCANE_FLOW_PLUS_POWER.title": "Arcane Flow+",
+  "THETREASURER-ARCANE_FLOW_PLUS_POWER.description": "The first enchanted card you play each turn costs 0 and draws 1.",
+  "THETREASURER-ARCANE_FLOW_PLUS_POWER.smartDescription": "The first enchanted card you play each turn costs 0 and draws 1.",
+  "THETREASURER-TEMP_STRENGTH_DOWN_POWER.title": "Weakened Strength",
+  "THETREASURER-TEMP_STRENGTH_DOWN_POWER.description": "This creature has {Amount:diff()} less Strength this turn.",
+  "THETREASURER-TEMP_STRENGTH_DOWN_POWER.smartDescription": "This creature has {Amount:diff()} less Strength this turn."
 }

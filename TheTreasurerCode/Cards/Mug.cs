@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.ValueProps;
@@ -15,7 +16,12 @@ public class Mug : TheTreasurerCard
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
         new DamageVar(9, ValueProp.Move),
-        new IntVar("GoldGain", 5)
+        new IntVar("GoldGain", 3)
+    ];
+
+    protected override IEnumerable<IHoverTip> ExtraHoverTips =>
+    [
+        HoverTipFactory.FromPower<WeakPower>()
     ];
 
     public Mug() : base(
@@ -39,10 +45,9 @@ public class Mug : TheTreasurerCard
             .WithHitFx("vfx/vfx_attack_slash")
             .Execute(choiceContext);
 
-        await PowerCmd.Apply<WeakPower>(choiceContext, play.Target, 2, Owner.Creature, this);
-
         if (play.Target.Monster?.IntendsToAttack == true)
         {
+            await PowerCmd.Apply<WeakPower>(choiceContext, play.Target, 2, Owner.Creature, this);
             await PlayerCmd.GainGold(DynamicVars["GoldGain"].BaseValue, Owner);
         }
     }
@@ -50,6 +55,6 @@ public class Mug : TheTreasurerCard
     protected override void OnUpgrade()
     {
         DynamicVars.Damage.UpgradeValueBy(1);
-        DynamicVars["GoldGain"].UpgradeValueBy(5);
+        DynamicVars["GoldGain"].UpgradeValueBy(2);
     }
 }

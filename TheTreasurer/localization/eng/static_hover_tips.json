@@ -1,4 +1,4 @@
 {
   "THETREASURER-RESIN.title": "Resin",
-  "THETREASURER-RESIN.description": "A temporary relic. Resin relics disappear at the end of combat and any non-combat persistent gains from obtaining them are reverted."
+  "THETREASURER-RESIN.description": "A temporary relic. Resin relics break at the end of combat and any non-combat persistent gains from obtaining them are reverted."
 }

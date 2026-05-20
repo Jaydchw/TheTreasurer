@@ -1,6 +1,7 @@
 using Godot;
 using HarmonyLib;
 using MegaCrit.Sts2.Core.Modding;
+using BaseLib.Patches.Localization;
 
 namespace TheTreasurer.TheTreasurerCode;
 
@@ -14,6 +15,9 @@ public partial class MainFile : Node
 
     public static void Initialize()
     {
+        // Enable BaseLib SimpleLoc processing for this mod's localization table.
+        SimpleLoc.EnableSimpleLoc(ModId);
+
         //If you want to use scripts defined in your mod for Godot scenes, uncomment the following line.
         //Godot.Bridge.ScriptManagerBridge.LookupScriptsInAssembly(Assembly.GetExecutingAssembly());
         

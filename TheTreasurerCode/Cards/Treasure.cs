@@ -10,7 +10,7 @@ namespace TheTreasurer.TheTreasurerCode.Cards;
 public class Treasure : TheTreasurerCard
 {
     public Treasure() : base(
-        cost: 2,
+        cost: 1,
         type: CardType.Skill,
         rarity: CardRarity.Basic,
         target: TargetType.None)
@@ -21,6 +21,11 @@ public class Treasure : TheTreasurerCard
     {
         _ = await ResinRelicRegistry.CreateRandomResinRelic(Owner, commonOnly: false);
         await PowerCmd.Apply<ResinRelicCleanupPower>(choiceContext, Owner.Creature, 1, Owner.Creature, this, silent: true);
+    }
+
+    protected override PileType GetResultPileTypeForCardPlay()
+    {
+        return PileType.Exhaust;
     }
 
     protected override void OnUpgrade()

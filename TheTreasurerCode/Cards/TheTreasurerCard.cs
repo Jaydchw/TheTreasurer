@@ -1,9 +1,12 @@
-﻿using BaseLib.Abstracts;
+using BaseLib.Abstracts;
 using BaseLib.Extensions;
 using BaseLib.Utils;
 using TheTreasurer.TheTreasurerCode.Character;
 using TheTreasurer.TheTreasurerCode.Extensions;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Models;
+using System.Threading.Tasks;
+using TheTreasurer.TheTreasurerCode.Relics;
 
 namespace TheTreasurer.TheTreasurerCode.Cards;
 
@@ -23,4 +26,77 @@ public abstract class TheTreasurerCard(int cost, CardType type, CardRarity rarit
     //Uses card_portraits/card_name.png as image path. These should be smaller images.
     public override string PortraitPath => $"{Id.Entry.RemovePrefix().ToLowerInvariant()}.png".CardImagePath();
     public override string BetaPortraitPath => $"beta/{Id.Entry.RemovePrefix().ToLowerInvariant()}.png".CardImagePath();
+
+    protected virtual void ApplySpawnEnchantment()
+    {
+    }
+
+    protected virtual bool RequiresResinRelicToPlay => false;
+
+    protected void EnsureSelfEnchantment<T>(int amount) where T : EnchantmentModel
+    {
+        if (Enchantment != null && Enchantment.GetType() == typeof(T) && Enchantment.Amount == amount)
+        {
+            return;
+        }
+
+        if (Enchantment != null)
+        {
+            ClearEnchantmentInternal();
+        }
+
+        EnchantInternal(ModelDb.Enchantment<T>().ToMutable(), amount);
+    }
+
+    public override Task AfterCardEnteredCombat(CardModel card)
+    {
+        if (ReferenceEquals(card, this))
+        {
+            ApplySpawnEnchantment();
+        }
+
+        return Task.CompletedTask;
+    }
+
+    public override Task AfterCardChangedPiles(CardModel card, PileType pileType, AbstractModel? source)
+    {
+        if (ReferenceEquals(card, this))
+        {
+            ApplySpawnEnchantment();
+        }
+
+        return Task.CompletedTask;
+    }
+
+    public override Task BeforeCardPlayed(CardPlay play)
+    {
+        if (ReferenceEquals(play.Card, this))
+        {
+            ApplySpawnEnchantment();
+        }
+
+        return Task.CompletedTask;
+    }
+
+    protected override void AfterCloned()
+    {
+        base.AfterCloned();
+        if (!IsCanonical)
+        {
+            ApplySpawnEnchantment();
+        }
+    }
+
+    public override bool ShouldPlay(CardModel card, AutoPlayType autoPlayType)
+    {
+        if (ReferenceEquals(card, this) && RequiresResinRelicToPlay && Owner != null)
+        {
+            if (ResinRelicRegistry.GetResinRelics(Owner).Count == 0)
+            {
+                return false;
+            }
+        }
+
+        return base.ShouldPlay(card, autoPlayType);
+    }
 }

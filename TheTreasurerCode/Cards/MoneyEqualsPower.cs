@@ -20,4 +20,9 @@ public class MoneyEqualsPower : TheTreasurerCard
     {
         return PowerCmd.Apply<MoneyPower>(choiceContext, Owner.Creature, 1, Owner.Creature, this);
     }
+
+    protected override void OnUpgrade()
+    {
+        EnergyCost.UpgradeBy(-1);
+    }
 }
