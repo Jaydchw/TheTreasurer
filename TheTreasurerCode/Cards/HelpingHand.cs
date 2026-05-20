@@ -7,6 +7,7 @@ using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models.Enchantments;
 using MegaCrit.Sts2.Core.ValueProps;
+using System.Linq;
 
 namespace TheTreasurer.TheTreasurerCode.Cards;
 
@@ -24,6 +25,16 @@ public class HelpingHand : TheTreasurerCard
     {
     }
 
+    protected override bool HasRequiredPlayTargets()
+    {
+        if (Owner == null)
+        {
+            return true;
+        }
+
+        return PileType.Hand.GetPile(Owner).Cards.Any(c => CardEnchantApi.CanApplyNimble(c));
+    }
+
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay play)
     {
         await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, play);
@@ -34,7 +45,7 @@ public class HelpingHand : TheTreasurerCard
             return;
         }
 
-        _ = CardEnchantApi.TryApply<Nimble>(selected, 2);
+        _ = CardEnchantApi.TryApplyNimble(selected, 2);
     }
 
     protected override void OnUpgrade()

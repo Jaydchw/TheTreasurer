@@ -34,11 +34,7 @@ public class GCheck : TheTreasurerCard
             return;
         }
 
-        var damage = DynamicVars.Damage.BaseValue;
-        if (play.Target.Monster?.IntendsToAttack == true)
-        {
-            damage *= 2;
-        }
+        var damage = DynamicVars.Damage.BaseValue + CalculateConditionalDamageBonus(this, play.Target);
 
         await DamageCmd.Attack(damage)
             .FromCard(this)

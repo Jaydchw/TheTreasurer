@@ -6,6 +6,7 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models.Enchantments;
+using System.Linq;
 
 namespace TheTreasurer.TheTreasurerCode.Cards;
 
@@ -13,14 +14,24 @@ public class FinePrint : TheTreasurerCard
 {
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new IntVar("GoldLoss", 30)
+        new IntVar("GoldLoss", 20)
     ];
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
         HoverTipFactory.FromEnchantment<Spiral>(2);
 
-    public FinePrint() : base(1, CardType.Skill, CardRarity.Rare, TargetType.None)
+    public FinePrint() : base(1, CardType.Skill, CardRarity.Uncommon, TargetType.None)
     {
+    }
+
+    protected override bool HasRequiredPlayTargets()
+    {
+        if (Owner == null)
+        {
+            return true;
+        }
+
+        return PileType.Hand.GetPile(Owner).Cards.Any(c => CardEnchantApi.CanApply<Spiral>(c));
     }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay play)
@@ -36,8 +47,5 @@ public class FinePrint : TheTreasurerCard
         _ = CardEnchantApi.TryApply<Spiral>(selected, 2);
     }
 
-    protected override void OnUpgrade()
-    {
-        DynamicVars["GoldLoss"].UpgradeValueBy(-10);
-    }
+    protected override void OnUpgrade() { }
 }

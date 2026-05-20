@@ -37,11 +37,9 @@ public class ChinaBull : TheTreasurerCard
                 .Execute(choiceContext);
         }
 
-        var resinRelics = ResinRelicRegistry.GetResinRelics(Owner);
-        if (resinRelics.Count > 0)
-        {
-            _ = await ResinRelicRegistry.DestroyRandomResinRelic(Owner);
-        }
+        _ = await ResinRelicRegistry.DestroyResinRelic(
+            Owner,
+            new ResinRelicRegistry.ResinDestroyRequest(Selector: ResinRelicRegistry.ResinDestroySelector.Random));
     }
 
     protected override void OnUpgrade()

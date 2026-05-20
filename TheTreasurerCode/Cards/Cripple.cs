@@ -5,6 +5,7 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
 using TheTreasurer.TheTreasurerCode.Powers;
 
@@ -40,6 +41,7 @@ public class Cripple : TheTreasurerCard
 
         await PowerCmd.Apply<WeakPower>(choiceContext, play.Target, DynamicVars["WeakAmt"].BaseValue, Owner.Creature, this);
         await PowerCmd.Apply<VulnerablePower>(choiceContext, play.Target, DynamicVars["VulnAmt"].BaseValue, Owner.Creature, this);
+        await PowerCmd.Apply<StrengthPower>(choiceContext, play.Target, -DynamicVars["StrDownAmt"].BaseValue, Owner.Creature, this);
         await PowerCmd.Apply<TempStrengthDownPower>(choiceContext, play.Target, DynamicVars["StrDownAmt"].BaseValue, Owner.Creature, this);
     }
 

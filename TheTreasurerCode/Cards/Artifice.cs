@@ -13,6 +13,23 @@ namespace TheTreasurer.TheTreasurerCode.Cards;
 
 public class Artifice : TheTreasurerCard
 {
+    private readonly record struct EnchantRule(
+        System.Func<CardModel, bool> CanApply,
+        System.Action<CardModel> Apply);
+
+    private static readonly Dictionary<CardType, EnchantRule> RulesByType = new()
+    {
+        [CardType.Power] = new(
+            CanApply: card => CardEnchantApi.CanApply<Swift>(card),
+            Apply: card => _ = CardEnchantApi.TryApply<Swift>(card, 2)),
+        [CardType.Attack] = new(
+            CanApply: card => CardEnchantApi.CanApply<Sharp>(card),
+            Apply: card => _ = CardEnchantApi.TryApply<Sharp>(card, 2)),
+        [CardType.Skill] = new(
+            CanApply: card => CardEnchantApi.CanApplyNimble(card, allowNonBlocking: true),
+            Apply: card => _ = CardEnchantApi.TryApplyNimble(card, 2, allowNonBlocking: true))
+    };
+
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
         new IntVar("GoldLoss", 80)
@@ -29,13 +46,21 @@ public class Artifice : TheTreasurerCard
     {
     }
 
+    protected override bool HasRequiredPlayTargets()
+    {
+        if (Owner == null)
+        {
+            return true;
+        }
+
+        return GetEnchantableHandCards().Count > 0;
+    }
+
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay play)
     {
         await PlayerCmd.LoseGold(DynamicVars["GoldLoss"].BaseValue, Owner);
 
-        var hand = PileType.Hand.GetPile(Owner).Cards
-            .Where(c => c.Enchantment == null && CanApplyTypedEnchant(c))
-            .ToList();
+        var hand = GetEnchantableHandCards();
         if (hand.Count == 0)
         {
             return;
@@ -68,28 +93,21 @@ public class Artifice : TheTreasurerCard
 
     private static void ApplyTypedEnchant(CardModel card)
     {
-        switch (card.Type)
+        if (RulesByType.TryGetValue(card.Type, out var rule))
         {
-            case CardType.Power:
-                _ = CardEnchantApi.TryApply<Swift>(card, 2);
-                break;
-            case CardType.Attack:
-                _ = CardEnchantApi.TryApply<Sharp>(card, 2);
-                break;
-            case CardType.Skill:
-                _ = CardEnchantApi.TryApply<Nimble>(card, 2);
-                break;
+            rule.Apply(card);
         }
     }
 
     private static bool CanApplyTypedEnchant(CardModel card)
     {
-        return card.Type switch
-        {
-            CardType.Power => CardEnchantApi.CanApply<Swift>(card),
-            CardType.Attack => CardEnchantApi.CanApply<Sharp>(card),
-            CardType.Skill => CardEnchantApi.CanApply<Nimble>(card),
-            _ => false
-        };
+        return RulesByType.TryGetValue(card.Type, out var rule) && rule.CanApply(card);
+    }
+
+    private List<CardModel> GetEnchantableHandCards()
+    {
+        return PileType.Hand.GetPile(Owner).Cards
+            .Where(c => c.Enchantment == null && CanApplyTypedEnchant(c))
+            .ToList();
     }
 }

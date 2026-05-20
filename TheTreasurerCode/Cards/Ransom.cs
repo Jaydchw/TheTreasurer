@@ -11,7 +11,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 
 namespace TheTreasurer.TheTreasurerCode.Cards;
 
-public class Cream : TheTreasurerCard
+public class Ransom : TheTreasurerCard
 {
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
@@ -23,7 +23,7 @@ public class Cream : TheTreasurerCard
             props: ValueProp.Move)
     ];
 
-    public Cream() : base(
+    public Ransom() : base(
         cost: 1,
         type: CardType.Attack,
         rarity: CardRarity.Basic,
@@ -67,24 +67,24 @@ public class Cream : TheTreasurerCard
         return Owner.Gold / divisor;
     }
 
-    private static int GetGoldStep(Cream cream)
+    private static int GetGoldStep(Ransom ransom)
     {
-        return cream.DynamicVars["GoldStep"].IntValue;
+        return ransom.DynamicVars["GoldStep"].IntValue;
     }
 
     private static decimal CalculateGoldScaledDamage(CardModel card, Creature? _target)
     {
-        if (card is not Cream cream || cream.Owner == null)
+        if (card is not Ransom ransom || ransom.Owner == null)
         {
             return 0;
         }
 
-        var divisor = GetGoldStep(cream);
+        var divisor = GetGoldStep(ransom);
         if (divisor <= 0)
         {
             return 0;
         }
 
-        return cream.Owner.Gold / divisor;
+        return ransom.Owner.Gold / divisor;
     }
 }

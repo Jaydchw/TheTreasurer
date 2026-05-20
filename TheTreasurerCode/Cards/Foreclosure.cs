@@ -14,7 +14,7 @@ public class Foreclosure : TheTreasurerCard
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay play)
     {
-        var damage = Owner.Gold;
+        var damage = Owner.Gold / 2;
         if (damage > 0)
         {
             if (IsUpgraded && CombatState != null)

@@ -13,7 +13,7 @@ namespace TheTreasurer.TheTreasurerCode.Character;
 public class TheTreasurer : PlaceholderCharacterModel
 {
     public const string CharacterId = "TheTreasurer";
-    public static readonly Color Color = new("ffdd00");
+    public static readonly Color Color = new("ffe100");
 
     public override Color NameColor => Color;
     public override CharacterGender Gender => CharacterGender.Neutral;
@@ -28,7 +28,7 @@ public class TheTreasurer : PlaceholderCharacterModel
         ModelDb.Card<DefendTreasurer>(),
         ModelDb.Card<DefendTreasurer>(),
         ModelDb.Card<DefendTreasurer>(),
-        ModelDb.Card<Cream>(),
+        ModelDb.Card<Ransom>(),
         ModelDb.Card<Treasure>()
     ];
 

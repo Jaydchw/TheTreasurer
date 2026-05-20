@@ -19,7 +19,7 @@ public class Treasure : TheTreasurerCard
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay play)
     {
-        _ = await ResinRelicRegistry.CreateRandomResinRelic(Owner, commonOnly: false);
+        _ = await ResinRelicRegistry.CreateResinRelic(Owner, new ResinRelicRegistry.ResinCreateRequest());
         await PowerCmd.Apply<ResinRelicCleanupPower>(choiceContext, Owner.Creature, 1, Owner.Creature, this, silent: true);
     }
 

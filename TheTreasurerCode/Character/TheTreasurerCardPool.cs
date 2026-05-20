@@ -14,6 +14,6 @@ public class TheTreasurerCardPool : CustomCardPoolModel
     public override float S => 1.00f;
     public override float V => 1.00f;
 
-    public override Color DeckEntryCardColor => new("ffdd00");
+    public override Color DeckEntryCardColor => TheTreasurer.Color;
     public override bool IsColorless => false;
 }

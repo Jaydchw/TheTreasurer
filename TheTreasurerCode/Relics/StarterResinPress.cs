@@ -10,7 +10,9 @@ public class StarterResinPress : TheTreasurerRelic
 
     public override async Task BeforeCombatStart()
     {
-        _ = await ResinRelicRegistry.CreateRandomResinRelic(Owner, commonOnly: true);
+        _ = await ResinRelicRegistry.CreateResinRelic(
+            Owner,
+            new ResinRelicRegistry.ResinCreateRequest(Rarity: RelicRarity.Common));
     }
 
     public override Task AfterCombatEnd(MegaCrit.Sts2.Core.Rooms.CombatRoom room)

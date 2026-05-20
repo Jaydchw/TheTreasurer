@@ -18,6 +18,21 @@
   "THETREASURER-ARCANE_FLOW_PLUS_POWER.description": "The first enchanted card you play each turn costs 0 and draws 1.",
   "THETREASURER-ARCANE_FLOW_PLUS_POWER.smartDescription": "The first enchanted card you play each turn costs 0 and draws 1.",
   "THETREASURER-TEMP_STRENGTH_DOWN_POWER.title": "Weakened Strength",
-  "THETREASURER-TEMP_STRENGTH_DOWN_POWER.description": "This creature has {Amount:diff()} less Strength this turn.",
-  "THETREASURER-TEMP_STRENGTH_DOWN_POWER.smartDescription": "This creature has {Amount:diff()} less Strength this turn."
+  "THETREASURER-TEMP_STRENGTH_DOWN_POWER.description": "This creature's Strength is temporarily reduced this turn.",
+  "THETREASURER-TEMP_STRENGTH_DOWN_POWER.smartDescription": "This creature's Strength is temporarily reduced this turn.",
+  "THETREASURER-CHARM_FORM_POWER.title": "Charm Form",
+  "THETREASURER-CHARM_FORM_POWER.description": "When you draw a card, apply a random enchantment to it this combat.",
+  "THETREASURER-CHARM_FORM_POWER.smartDescription": "When you draw a card, apply a random enchantment to it this combat.",
+  "THETREASURER-GAMBLING_ADDICTION_POWER.title": "Gambling Addiction",
+  "THETREASURER-GAMBLING_ADDICTION_POWER.description": "Lose 5-10 Gold each turn. Gain [E] and draw {Amount}. If you lose all Gold, you die.",
+  "THETREASURER-GAMBLING_ADDICTION_POWER.smartDescription": "Lose 5-10 Gold each turn. Gain [E] and draw {Amount}. If you lose all Gold, you die.",
+  "THETREASURER-GETAWAY_POWER.title": "Getaway",
+  "THETREASURER-GETAWAY_POWER.description": "When you play a Power, enchant a random card in your hand with Swift 2.",
+  "THETREASURER-GETAWAY_POWER.smartDescription": "When you play a Power, enchant a random card in your hand with Swift 2.",
+  "THETREASURER-KINTSUGI_POWER.title": "Kintsugi",
+  "THETREASURER-KINTSUGI_POWER.description": "When a Resin Relic is destroyed this turn, gain 5 Gold and apply {Amount} random enchantment(s) to your hand at end of turn.",
+  "THETREASURER-KINTSUGI_POWER.smartDescription": "When a Resin Relic is destroyed this turn, gain 5 Gold and apply {Amount} random enchantment(s) to your hand at end of turn.",
+  "THETREASURER-LIFE_INSURANCE_POWER.title": "Life Insurance",
+  "THETREASURER-LIFE_INSURANCE_POWER.description": "If you die, revive with 1 HP and lose {Amount} Gold. One time.",
+  "THETREASURER-LIFE_INSURANCE_POWER.smartDescription": "If you die, revive with 1 HP and lose {Amount} Gold. One time."
 }

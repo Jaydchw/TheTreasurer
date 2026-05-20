@@ -25,7 +25,9 @@ public class EmergencyFund : TheTreasurerCard
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay play)
     {
         await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, play);
-        _ = await ResinRelicRegistry.DestroyRandomResinRelic(Owner);
+        _ = await ResinRelicRegistry.DestroyResinRelic(
+            Owner,
+            new ResinRelicRegistry.ResinDestroyRequest(Selector: ResinRelicRegistry.ResinDestroySelector.Random));
     }
 
     protected override void OnUpgrade()

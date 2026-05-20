@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Relics;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.ValueProps;
@@ -39,7 +40,9 @@ public class DirectDeposit : TheTreasurerCard
                 .Execute(choiceContext);
         }
 
-        var created = await ResinRelicRegistry.CreateRandomShopResinRelic(Owner);
+        var created = await ResinRelicRegistry.CreateResinRelic(
+            Owner,
+            new ResinRelicRegistry.ResinCreateRequest(Rarity: RelicRarity.Shop));
         if (created != null)
         {
             await PowerCmd.Apply<ResinRelicCleanupPower>(choiceContext, Owner.Creature, 1, Owner.Creature, this, silent: true);

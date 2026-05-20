@@ -40,15 +40,18 @@ public class BringBack : TheTreasurerCard
         }
 
         await CardPileCmd.Add(selected, PileType.Hand);
-        if (selected.Enchantment != null && selected.Enchantment.GetType() != typeof(Spiral))
+        var targetInHand = PileType.Hand.GetPile(Owner).Cards
+            .LastOrDefault(c => ReferenceEquals(c, selected))
+            ?? PileType.Hand.GetPile(Owner).Cards
+                .LastOrDefault(c => c.Id == selected.Id && c.CurrentUpgradeLevel == selected.CurrentUpgradeLevel)
+            ?? selected;
+
+        if (targetInHand.Enchantment != null && targetInHand.Enchantment.GetType() != typeof(Spiral))
         {
-            CardCmd.ClearEnchantment(selected);
+            CardCmd.ClearEnchantment(targetInHand);
         }
 
-        if (selected.Enchantment == null || selected.Enchantment.GetType() == typeof(Spiral))
-        {
-            CardCmd.Enchant<Spiral>(selected, 1);
-        }
+        _ = CardEnchantApi.TryApply<Spiral>(targetInHand, 1);
     }
 
     protected override void OnUpgrade()

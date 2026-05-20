@@ -32,6 +32,7 @@ public abstract class TheTreasurerCard(int cost, CardType type, CardRarity rarit
     }
 
     protected virtual bool RequiresResinRelicToPlay => false;
+    protected virtual bool HasRequiredPlayTargets() => true;
 
     protected void EnsureSelfEnchantment<T>(int amount) where T : EnchantmentModel
     {
@@ -95,6 +96,11 @@ public abstract class TheTreasurerCard(int cost, CardType type, CardRarity rarit
             {
                 return false;
             }
+        }
+
+        if (ReferenceEquals(card, this) && !HasRequiredPlayTargets())
+        {
+            return false;
         }
 
         return base.ShouldPlay(card, autoPlayType);

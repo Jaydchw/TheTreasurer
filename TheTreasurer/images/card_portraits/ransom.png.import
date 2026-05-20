@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://couc3d31eytni"
-path="res://.godot/imported/cream.png-9aa5b70fc8b4d48ae846537028a18842.ctex"
+path="res://.godot/imported/ransom.png-d5726724a32ea9bcac8b7727071d794f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://TheTreasurer/images/card_portraits/big/beta/cream.png"
-dest_files=["res://.godot/imported/cream.png-9aa5b70fc8b4d48ae846537028a18842.ctex"]
+source_file="res://TheTreasurer/images/card_portraits/ransom.png"
+dest_files=["res://.godot/imported/ransom.png-d5726724a32ea9bcac8b7727071d794f.ctex"]
 
 [params]
 
