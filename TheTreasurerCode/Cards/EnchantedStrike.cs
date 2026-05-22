@@ -13,7 +13,7 @@ public class EnchantedStrike : TheTreasurerCard
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
         new DamageVar(7, ValueProp.Move),
-        new IntVar("BonusDmg", 10)
+        new IntVar("BonusDmg", 4)
     ];
 
     public EnchantedStrike() : base(1, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy)
@@ -45,8 +45,7 @@ public class EnchantedStrike : TheTreasurerCard
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Damage.UpgradeValueBy(2);
-        DynamicVars["BonusDmg"].UpgradeValueBy(2);
+        DynamicVars.Damage.UpgradeValueBy(1);
+        DynamicVars["BonusDmg"].UpgradeValueBy(3);
     }
 }
-

@@ -21,7 +21,8 @@ public class Mug : TheTreasurerCard
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
     [
-        HoverTipFactory.FromPower<WeakPower>()
+        HoverTipFactory.FromPower<WeakPower>(),
+        HoverTipFactory.FromKeyword(CardKeyword.Exhaust)
     ];
 
     public Mug() : base(
@@ -56,5 +57,10 @@ public class Mug : TheTreasurerCard
     {
         DynamicVars.Damage.UpgradeValueBy(1);
         DynamicVars["GoldGain"].UpgradeValueBy(2);
+    }
+
+    protected override PileType GetResultPileTypeForCardPlay()
+    {
+        return PileType.Exhaust;
     }
 }

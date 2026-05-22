@@ -1,3 +1,4 @@
+using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Enchantments;
@@ -16,6 +17,34 @@ public static partial class CardEnchantApi
             () => TryApply<Swift>(card, amount),
             () => TryApplyNimble(card, amount, allowNonBlocking: true),
             () => TryApply<Spiral>(card, amount),
+            () => TryApply<Sown>(card, amount)
+        };
+
+        owner.RunState.Rng.TreasureRoomRelics.Shuffle(attempts);
+        foreach (var attempt in attempts)
+        {
+            if (attempt())
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public static bool TryForceApplyRandomKnownEnchant(CardModel card, int amount, Player owner)
+    {
+        if (card.Enchantment != null)
+        {
+            CardCmd.ClearEnchantment(card);
+        }
+
+        var attempts = new List<System.Func<bool>>
+        {
+            () => TryApply<Sharp>(card, amount),
+            () => TryApply<Swift>(card, amount),
+            () => TryApplyNimble(card, amount, allowNonBlocking: true),
+            () => TryApplySpiral(card, amount, allowAnyCard: true),
             () => TryApply<Sown>(card, amount)
         };
 

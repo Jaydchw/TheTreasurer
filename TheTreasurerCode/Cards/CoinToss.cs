@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.ValueProps;
 
@@ -11,6 +12,11 @@ namespace TheTreasurer.TheTreasurerCode.Cards;
 
 public class CoinToss : TheTreasurerCard
 {
+    protected override IEnumerable<IHoverTip> ExtraHoverTips =>
+    [
+        HoverTipFactory.FromKeyword(CardKeyword.Exhaust)
+    ];
+
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
         new DamageVar(3, ValueProp.Move),
@@ -54,5 +60,10 @@ public class CoinToss : TheTreasurerCard
     {
         DynamicVars["Hits"].UpgradeValueBy(1);
         DynamicVars["GoldGain"].UpgradeValueBy(1);
+    }
+
+    protected override PileType GetResultPileTypeForCardPlay()
+    {
+        return PileType.Exhaust;
     }
 }

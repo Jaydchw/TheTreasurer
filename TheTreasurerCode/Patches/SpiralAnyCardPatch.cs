@@ -1,6 +1,7 @@
 using HarmonyLib;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Enchantments;
+using TheTreasurer.TheTreasurerCode.Cards;
 
 namespace TheTreasurer.TheTreasurerCode.Patches;
 
@@ -10,6 +11,11 @@ public static class SpiralAnyCardPatch
     [HarmonyPrefix]
     public static bool Prefix(CardModel c, ref bool __result)
     {
+        if (!CardEnchantApi.IsSpiralAnyCardAllowed(c))
+        {
+            return true;
+        }
+
         __result = c != null;
         return false;
     }

@@ -2,7 +2,6 @@ using MegaCrit.Sts2.Core.CardSelection;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
-using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,15 +15,10 @@ public class ManaBuild : TheTreasurerCard
 {
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new IntVar("DrawAmt", 2)
+        new IntVar("EnergyGain", 1)
     ];
 
-    protected override IEnumerable<IHoverTip> ExtraHoverTips =>
-    [
-        HoverTipFactory.FromKeyword(CardKeyword.Exhaust)
-    ];
-
-    public ManaBuild() : base(0, CardType.Skill, CardRarity.Uncommon, TargetType.None)
+    public ManaBuild() : base(1, CardType.Skill, CardRarity.Uncommon, TargetType.None)
     {
     }
 
@@ -41,25 +35,25 @@ public class ManaBuild : TheTreasurerCard
             return;
         }
 
-        var prefs = new CardSelectorPrefs(new LocString("gameplay_ui", "SELECT_CARD"), 1);
-        var selected = (await CardSelectCmd.FromSimpleGrid(choiceContext, candidates, Owner, prefs)).FirstOrDefault();
+        var prefs = new CardSelectorPrefs(CardSelectorPrefs.RemoveSelectionPrompt, 1);
+        var selected = (await CardSelectCmd.FromHandForDiscard(choiceContext, Owner, prefs, null, source: this)).FirstOrDefault();
         if (selected == null)
         {
             return;
         }
 
-        CardCmd.ClearEnchantment(selected);
-        await PlayerCmd.GainEnergy(2, Owner);
-        await CardPileCmd.Draw(choiceContext, DynamicVars["DrawAmt"].BaseValue, Owner);
-    }
+        if (!candidates.Contains(selected))
+        {
+            return;
+        }
 
-    protected override PileType GetResultPileTypeForCardPlay()
-    {
-        return PileType.Exhaust;
+        CardCmd.ClearEnchantment(selected);
+        await PlayerCmd.GainEnergy(DynamicVars["EnergyGain"].BaseValue, Owner);
+        await CardPileCmd.Draw(choiceContext, 2, Owner);
     }
 
     protected override void OnUpgrade()
     {
-        DynamicVars["DrawAmt"].UpgradeValueBy(2);
+        DynamicVars["EnergyGain"].UpgradeValueBy(1);
     }
 }

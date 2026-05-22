@@ -15,6 +15,7 @@ namespace TheTreasurer.TheTreasurerCode.Cards;
 public static partial class CardEnchantApi
 {
     private static readonly HashSet<CardModel> NimbleAnyCardAllowlist = [];
+    private static readonly HashSet<CardModel> SpiralAnyCardAllowlist = [];
 
     public static bool CanApply<T>(CardModel card, bool requireUnenchanted = true) where T : EnchantmentModel
     {
@@ -36,6 +37,8 @@ public static partial class CardEnchantApi
     public static async Task<CardModel?> SelectEnchantableHandCard<T>(
         PlayerChoiceContext choiceContext,
         Player owner,
+        CardSelectorPrefs? prefs = null,
+        CardModel? source = null,
         bool requireUnenchanted = true) where T : EnchantmentModel
     {
         var candidates = GetEnchantableHandCards<T>(owner, requireUnenchanted);
@@ -44,8 +47,14 @@ public static partial class CardEnchantApi
             return null;
         }
 
-        var prefs = new CardSelectorPrefs(new LocString("gameplay_ui", "SELECT_CARD"), 1);
-        return (await CardSelectCmd.FromSimpleGrid(choiceContext, candidates, owner, prefs)).FirstOrDefault();
+        var selectionPrefs = prefs ?? new CardSelectorPrefs(CardSelectorPrefs.EnchantSelectionPrompt, 1);
+        var selected = (await CardSelectCmd.FromHandForDiscard(choiceContext, owner, selectionPrefs, null, source)).FirstOrDefault();
+        if (selected == null)
+        {
+            return null;
+        }
+
+        return candidates.Contains(selected) ? selected : null;
     }
 
     public static bool TryApply<T>(CardModel card, int amount) where T : EnchantmentModel
@@ -110,5 +119,58 @@ public static partial class CardEnchantApi
     public static bool IsNimbleAnyCardAllowed(CardModel card)
     {
         return NimbleAnyCardAllowlist.Contains(card);
+    }
+
+    public static bool CanApplySpiral(CardModel card, bool requireUnenchanted = true, bool allowAnyCard = false)
+    {
+        if (requireUnenchanted && card.Enchantment != null)
+        {
+            return false;
+        }
+
+        if (!allowAnyCard)
+        {
+            return ModelDb.Enchantment<Spiral>().CanEnchant(card);
+        }
+
+        SpiralAnyCardAllowlist.Add(card);
+        try
+        {
+            return ModelDb.Enchantment<Spiral>().CanEnchant(card);
+        }
+        finally
+        {
+            SpiralAnyCardAllowlist.Remove(card);
+        }
+    }
+
+    public static bool TryApplySpiral(CardModel card, int amount, bool allowAnyCard = false)
+    {
+        if (!CanApplySpiral(card, requireUnenchanted: true, allowAnyCard: allowAnyCard))
+        {
+            return false;
+        }
+
+        if (allowAnyCard)
+        {
+            SpiralAnyCardAllowlist.Add(card);
+            try
+            {
+                CardCmd.Enchant<Spiral>(card, amount);
+                return true;
+            }
+            finally
+            {
+                SpiralAnyCardAllowlist.Remove(card);
+            }
+        }
+
+        CardCmd.Enchant<Spiral>(card, amount);
+        return true;
+    }
+
+    public static bool IsSpiralAnyCardAllowed(CardModel card)
+    {
+        return SpiralAnyCardAllowlist.Contains(card);
     }
 }

@@ -37,6 +37,7 @@ public class Artifice : TheTreasurerCard
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
     [
+        HoverTipFactory.FromKeyword(CardKeyword.Exhaust),
         ..HoverTipFactory.FromEnchantment<Swift>(2),
         ..HoverTipFactory.FromEnchantment<Sharp>(2),
         ..HoverTipFactory.FromEnchantment<Nimble>(2)
@@ -89,6 +90,11 @@ public class Artifice : TheTreasurerCard
     protected override void OnUpgrade()
     {
         DynamicVars["GoldLoss"].UpgradeValueBy(-30);
+    }
+
+    protected override PileType GetResultPileTypeForCardPlay()
+    {
+        return PileType.Exhaust;
     }
 
     private static void ApplyTypedEnchant(CardModel card)

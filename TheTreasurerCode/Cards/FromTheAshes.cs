@@ -31,7 +31,7 @@ public class FromTheAshes : TheTreasurerCard
         var hits = DynamicVars["Hits"].BaseValue;
         for (var i = 0; i < hits; i++)
         {
-            await DamageCmd.Attack(6)
+            await DamageCmd.Attack(8)
                 .FromCard(this)
                 .Targeting(play.Target)
                 .WithHitFx("vfx/vfx_attack_slash")

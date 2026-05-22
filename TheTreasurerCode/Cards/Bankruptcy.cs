@@ -27,6 +27,11 @@ public class Bankruptcy : TheTreasurerCard
 
         foreach (var card in PileType.Hand.GetPile(Owner).Cards.ToList())
         {
+            if (card.Enchantment != null)
+            {
+                CardCmd.ClearEnchantment(card);
+            }
+
             _ = CardEnchantApi.TryApply<Spiral>(card, 1);
         }
     }

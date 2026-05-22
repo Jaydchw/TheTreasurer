@@ -14,7 +14,7 @@ public class BigSpender : TheTreasurerCard
 {
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new IntVar("GoldLoss", 100)
+        new IntVar("GoldLoss", 50)
     ];
 
     public BigSpender() : base(0, CardType.Skill, CardRarity.Uncommon, TargetType.None)
@@ -32,15 +32,15 @@ public class BigSpender : TheTreasurerCard
         await PlayerCmd.GainEnergy(2, Owner);
         await CardPileCmd.Draw(choiceContext, 3, Owner);
 
-        var created = await ResinRelicRegistry.CreateResinRelic(Owner, new ResinRelicRegistry.ResinCreateRequest());
+        var request = IsUpgraded
+            ? new ResinRelicRegistry.ResinCreateRequest(Rarity: RelicRarity.Rare)
+            : new ResinRelicRegistry.ResinCreateRequest();
+        var created = await ResinRelicRegistry.CreateResinRelic(Owner, request);
         if (created != null)
         {
             await PowerCmd.Apply<ResinRelicCleanupPower>(choiceContext, Owner.Creature, 1, Owner.Creature, this, silent: true);
         }
     }
 
-    protected override void OnUpgrade()
-    {
-        DynamicVars["GoldLoss"].UpgradeValueBy(-25);
-    }
+    protected override void OnUpgrade() { }
 }

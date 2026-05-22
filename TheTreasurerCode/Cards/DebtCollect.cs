@@ -16,7 +16,7 @@ public class DebtCollect : TheTreasurerCard
         new DamageVar(8, ValueProp.Move)
     ];
 
-    public DebtCollect() : base(1, CardType.Attack, CardRarity.Common, TargetType.None)
+    public DebtCollect() : base(0, CardType.Attack, CardRarity.Common, TargetType.None)
     {
     }
 
