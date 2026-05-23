@@ -14,7 +14,7 @@ public class ArcaneFlowPower : TheTreasurerPower
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Single;
 
-    public override Task AfterSideTurnStart(CombatSide side, ICombatState combatState)
+    public Task AfterSideTurnStart(CombatSide side, ICombatState combatState)
     {
         if (side == CombatSide.Player && Owner.IsPlayer)
         {

@@ -20,7 +20,7 @@ public class CompoundInterestPower : TheTreasurerPower
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Counter;
 
-    public override Task AfterSideTurnStart(CombatSide side, ICombatState combatState)
+    public Task AfterSideTurnStart(CombatSide side, ICombatState combatState)
     {
         if (side == CombatSide.Player && Owner.IsPlayer && Owner.Player != null)
         {
@@ -30,7 +30,7 @@ public class CompoundInterestPower : TheTreasurerPower
         return Task.CompletedTask;
     }
 
-    public override async Task AfterTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
+    public async Task AfterTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
     {
         if (side != CombatSide.Player || !Owner.IsPlayer || Owner.Player == null || Amount <= 0)
         {

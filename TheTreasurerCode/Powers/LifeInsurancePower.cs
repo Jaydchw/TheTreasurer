@@ -13,7 +13,7 @@ public class LifeInsurancePower : TheTreasurerPower
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Single;
 
-    public override async Task AfterTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
+    public async Task AfterTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
     {
         if (_used || side != CombatSide.Player || !Owner.IsPlayer || Owner.Player == null)
         {

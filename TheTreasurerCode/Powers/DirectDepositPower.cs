@@ -10,7 +10,7 @@ public class DirectDepositPower : TheTreasurerPower
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Counter;
 
-    public override async Task AfterSideTurnStart(CombatSide side, ICombatState combatState)
+    public async Task AfterSideTurnStart(CombatSide side, ICombatState combatState)
     {
         if (side != CombatSide.Player || !Owner.IsPlayer || Owner.Player == null || Amount <= 0)
         {

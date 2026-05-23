@@ -10,6 +10,8 @@ namespace TheTreasurer.TheTreasurerCode.Cards;
 
 public class DefendTreasurer : TheTreasurerCard
 {
+    protected override HashSet<CardTag> CanonicalTags => [CardTag.Defend];
+
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
         new BlockVar(5, ValueProp.Move)

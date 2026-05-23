@@ -10,6 +10,8 @@ namespace TheTreasurer.TheTreasurerCode.Cards;
 
 public class StrikeTreasurer : TheTreasurerCard
 {
+    protected override HashSet<CardTag> CanonicalTags => [CardTag.Strike];
+
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
         new DamageVar(6, ValueProp.Move)

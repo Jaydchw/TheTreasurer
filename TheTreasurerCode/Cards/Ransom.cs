@@ -15,10 +15,11 @@ public class Ransom : TheTreasurerCard
 {
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new IntVar("GoldStep", 15),
+        new DamageVar(3, ValueProp.Move),
+        new IntVar("GoldStep", 30),
         ..CustomCardModel.MakeCalculatedDamage(
-            baseVal: 0,
-            bonus: CalculateGoldScaledDamage,
+            baseVal: 3,
+            bonus: CalculateGoldScaledBonus,
             mult: 1,
             props: ValueProp.Move)
     ];
@@ -53,7 +54,7 @@ public class Ransom : TheTreasurerCard
 
     protected override void OnUpgrade()
     {
-        DynamicVars["GoldStep"].UpgradeValueBy(-5);
+        DynamicVars["GoldStep"].UpgradeValueBy(-10);
     }
 
     private int ComputeDamage()
@@ -64,7 +65,7 @@ public class Ransom : TheTreasurerCard
             return 0;
         }
 
-        return Owner.Gold / divisor;
+        return (int)DynamicVars.Damage.BaseValue + (int)(Owner.Gold / divisor);
     }
 
     private static int GetGoldStep(Ransom ransom)
@@ -72,7 +73,7 @@ public class Ransom : TheTreasurerCard
         return ransom.DynamicVars["GoldStep"].IntValue;
     }
 
-    private static decimal CalculateGoldScaledDamage(CardModel card, Creature? _target)
+    private static decimal CalculateGoldScaledBonus(CardModel card, Creature? _target)
     {
         if (card is not Ransom ransom || ransom.Owner == null)
         {

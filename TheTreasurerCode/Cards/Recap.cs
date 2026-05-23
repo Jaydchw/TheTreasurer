@@ -11,12 +11,12 @@ using MegaCrit.Sts2.Core.Models.Enchantments;
 
 namespace TheTreasurer.TheTreasurerCode.Cards;
 
-public class BringBack : TheTreasurerCard
+public class Recap : TheTreasurerCard
 {
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
         HoverTipFactory.FromEnchantment<Spiral>(1);
 
-    public BringBack() : base(
+    public Recap() : base(
         cost: 2,
         type: CardType.Skill,
         rarity: CardRarity.Common,
